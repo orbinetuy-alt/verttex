@@ -1,0 +1,98 @@
+---
+---
+
+<header
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-8 md:px-16 py-5 flex items-center justify-between"
+>
+  <span class="text-white font-bold text-xl tracking-widest uppercase">Verttex</span>
+
+  <!-- Links desktop -->
+  <div class="hidden md:flex items-center gap-8 text-sm text-white/70">
+    <a href="#servicios" class="hover:text-white transition-colors duration-200">Servicios</a>
+    <a href="#nosotros" class="hover:text-white transition-colors duration-200">Nosotros</a>
+    <a href="#proceso" class="hover:text-white transition-colors duration-200">Proceso</a>
+    <a href="#contacto" class="hover:text-white transition-colors duration-200">Contacto</a>
+  </div>
+
+  <!-- CTA desktop -->
+  <a
+    href="#contacto"
+    class="hidden md:inline-flex border border-white/30 text-white text-sm px-5 py-2 rounded-full hover:bg-white hover:text-black transition-all duration-300"
+  >
+    Hablemos
+  </a>
+
+  <!-- Botón hamburguesa mobile -->
+  <button
+    id="menu-btn"
+    class="md:hidden flex flex-col justify-center items-center gap-1.5 w-9 h-9"
+    aria-label="Abrir menú"
+  >
+    <span id="line1" class="block w-6 h-px bg-white transition-all duration-300"></span>
+    <span id="line2" class="block w-6 h-px bg-white transition-all duration-300"></span>
+    <span id="line3" class="block w-6 h-px bg-white transition-all duration-300"></span>
+  </button>
+</header>
+
+<!-- Menú mobile -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-40 bg-[#0D0F12]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-300 md:hidden"
+>
+  <a href="#servicios" class="mobile-link text-white text-2xl font-semibold tracking-wide">Servicios</a>
+  <a href="#nosotros"  class="mobile-link text-white text-2xl font-semibold tracking-wide">Nosotros</a>
+  <a href="#proceso"   class="mobile-link text-white text-2xl font-semibold tracking-wide">Proceso</a>
+  <a href="#contacto" class="mobile-link text-white text-2xl font-semibold tracking-wide">Contacto</a>
+  <a href="#contacto" class="mobile-link mt-4 bg-[#B8864E] hover:bg-[#D4A574] text-black font-semibold text-sm px-8 py-3.5 rounded-full transition-all duration-300">
+    Hablemos
+  </a>
+</div>
+
+<script>
+  const navbar     = document.getElementById('navbar')!;
+  const menuBtn    = document.getElementById('menu-btn')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+  const line1      = document.getElementById('line1')!;
+  const line2      = document.getElementById('line2')!;
+  const line3      = document.getElementById('line3')!;
+  let open = false;
+
+  function toggleMenu() {
+    open = !open;
+    if (open) {
+      mobileMenu.classList.remove('translate-x-full');
+      mobileMenu.classList.add('translate-x-0');
+      // Animación X
+      line1.style.cssText = 'transform: translateY(6px) rotate(45deg)';
+      line2.style.cssText = 'opacity: 0';
+      line3.style.cssText = 'transform: translateY(-6px) rotate(-45deg)';
+    } else {
+      mobileMenu.classList.add('translate-x-full');
+      mobileMenu.classList.remove('translate-x-0');
+      line1.style.cssText = '';
+      line2.style.cssText = '';
+      line3.style.cssText = '';
+    }
+  }
+
+  menuBtn.addEventListener('click', toggleMenu);
+
+  // Cerrar al tocar un link
+  document.querySelectorAll('.mobile-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (open) toggleMenu();
+    });
+  });
+
+  // Scroll: fondo en navbar
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+      navbar.classList.add('bg-[#0D0F12]/85', 'backdrop-blur-xl', 'border-b', 'border-white/[0.07]', 'py-3.5', 'shadow-lg', 'shadow-black/30');
+      navbar.classList.remove('py-5');
+    } else {
+      navbar.classList.remove('bg-[#0D0F12]/85', 'backdrop-blur-xl', 'border-b', 'border-white/[0.07]', 'py-3.5', 'shadow-lg', 'shadow-black/30');
+      navbar.classList.add('py-5');
+    }
+  }, { passive: true });
+</script>

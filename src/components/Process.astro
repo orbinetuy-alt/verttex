@@ -1,0 +1,95 @@
+---
+const steps = [
+  {
+    number: "01",
+    title: "Primera reunión",
+    description: "Nos juntamos para entender tu negocio, tus objetivos y el problema que querés resolver. Sin tecnicismos — una charla real para saber exactamente qué necesitás.",
+  },
+  {
+    number: "02",
+    title: "Propuesta y presupuesto",
+    description: "En base a lo que hablamos, armamos una propuesta clara con alcance, tiempos y costos. Sin letra chica ni sorpresas.",
+  },
+  {
+    number: "03",
+    title: "Diseño y planificación",
+    description: "Diseñamos la solución antes de construirla — wireframes, arquitectura y roadmap. Vos aprobás cada etapa antes de avanzar.",
+  },
+  {
+    number: "04",
+    title: "Desarrollo y producción",
+    description: "Construimos el proyecto con actualizaciones periódicas para que siempre sepas en qué estamos. Iteramos con tu feedback en tiempo real.",
+  },
+  {
+    number: "05",
+    title: "Entrega y seguimiento",
+    description: "Lanzamos, te capacitamos y te acompañamos después del cierre. El proyecto termina cuando vos estás conforme y operando al 100%.",
+  },
+];
+---
+
+<section id="proceso" class="bg-[#111318] py-28 px-8 md:px-16">
+  <div class="max-w-4xl mx-auto">
+
+    <!-- Header -->
+    <div class="mb-20">
+      <span class="inline-flex items-center border border-[#B8864E]/40 text-[#B8864E] text-xs font-medium px-4 py-1.5 rounded-full mb-8 tracking-wide">
+        Nuestro Proceso
+      </span>
+      <h2 class="text-4xl md:text-6xl font-bold text-white leading-tight">
+        Así trabajamos<br />
+        <span class="italic font-light text-white/40">con cada cliente</span>
+      </h2>
+    </div>
+
+    <!-- Timeline -->
+    <div class="relative">
+      <!-- Línea vertical conectora -->
+      <div class="absolute left-[27px] top-0 bottom-0 w-px bg-gradient-to-b from-[#B8864E]/40 via-[#B8864E]/20 to-transparent"></div>
+
+      <div class="flex flex-col gap-0">
+        {steps.map((step, i) => (
+          <div
+            class="process-step flex gap-8 pb-12 last:pb-0 opacity-0 -translate-x-10"
+            style={`transition-delay: ${i * 120}ms`}
+          >
+            <!-- Número / dot -->
+            <div class="flex-shrink-0 relative z-10">
+              <div class="w-14 h-14 rounded-full bg-[#111318] border border-[#B8864E]/40 flex items-center justify-center">
+                <span class="text-[#B8864E] text-xs font-bold tracking-widest">{step.number}</span>
+              </div>
+            </div>
+
+            <!-- Contenido -->
+            <div class="pt-3 pb-2">
+              <h3 class="text-white font-semibold text-xl mb-3">{step.title}</h3>
+              <p class="text-white/45 text-sm leading-relaxed max-w-lg">{step.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const steps = document.querySelectorAll('.process-step');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          el.style.transition = `opacity 0.6s ease, transform 0.6s ease`;
+          el.classList.remove('opacity-0', '-translate-x-10');
+          el.classList.add('opacity-100', 'translate-x-0');
+          observer.unobserve(el);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  steps.forEach((step) => observer.observe(step));
+</script>

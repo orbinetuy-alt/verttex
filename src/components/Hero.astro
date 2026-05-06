@@ -1,0 +1,51 @@
+---
+import { ShaderBackground } from './ShaderBackground';
+---
+
+<section id="hero">
+  <ShaderBackground client:only="react">
+    <!-- Hero content -->
+    <div class="relative z-10 flex flex-col justify-end min-h-screen pb-20 px-8 md:px-16">
+
+      <!-- Badge -->
+      <div class="mb-6">
+        <span class="inline-flex items-center gap-2 border border-[#B8864E]/50 text-[#D4A574] text-xs px-4 py-1.5 rounded-full bg-[#B8864E]/10 backdrop-blur-sm">
+          ✦ Software & Marketing Digital
+        </span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold leading-none tracking-tight max-w-4xl">
+        <span class="italic font-light text-white/90">Tu empresa,</span><br />
+        <span class="text-white">en el siguiente</span><br />
+        <span
+          class="bg-gradient-to-r from-[#B8864E] via-[#D4A574] to-[#B8864E] bg-clip-text text-transparent"
+        >
+          nivel.
+        </span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="mt-6 text-white/60 text-base md:text-lg max-w-xl leading-relaxed">
+        Creamos páginas web, sistemas a medida y automatizaciones que hacen crecer tu negocio. 
+        También gestionamos tus redes y te posicionamos en Google.
+      </p>
+
+      <!-- CTAs -->
+      <div class="mt-10 flex flex-wrap items-center gap-4">
+        <a
+          href="#contacto"
+          class="bg-[#B8864E] hover:bg-[#D4A574] text-black font-semibold text-sm px-7 py-3 rounded-full transition-all duration-300 shadow-lg shadow-[#B8864E]/30"
+        >
+          Empezar proyecto
+        </a>
+        <a
+          href="#servicios"
+          class="border border-white/25 text-white/80 hover:border-white/60 hover:text-white text-sm px-7 py-3 rounded-full transition-all duration-300 backdrop-blur-sm"
+        >
+          Ver servicios
+        </a>
+      </div>
+    </div>
+  </ShaderBackground>
+</section>
