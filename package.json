@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^5.0.4",
+    "@emailjs/browser": "^4.4.1",
     "@paper-design/shaders-react": "^0.0.76",
     "@tailwindcss/vite": "^4.2.4",
     "@types/react": "^19.2.14",

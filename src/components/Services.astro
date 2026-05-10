@@ -12,29 +12,22 @@ const icons: Record<IconKey, string> = {
   radio: `<path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.4"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.4"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/>`,
 };
 
-interface Service {
-  title: string;
-  label: string;
-  icon: IconKey;
-  featured?: boolean;
-}
-
-const softwareServices: Service[] = [
-  { title: "Páginas Web",          label: "Sitios modernos y rápidos que convierten visitas en clientes.",       icon: "globe"       },
-  { title: "Agentes de IA",        label: "Automatizá la atención y procesos con inteligencia artificial.",      icon: "sparkles", featured: true },
-  { title: "Sistemas a Medida",    label: "Gestión, stock, reservas — tecnología propia para tu negocio.",       icon: "layers"      },
-  { title: "Automatizaciones",     label: "Eliminá tareas repetitivas con flujos automáticos inteligentes.",     icon: "zap"         },
-  { title: "Apps Móviles",         label: "Aplicaciones iOS y Android conectadas a tus sistemas.",               icon: "smartphone"  },
+const softwareServices: Array<{ num: string; title: string; label: string; icon: IconKey; bg: string; iconColor: string }> = [
+  { num: '001', title: "Páginas Web",       label: "Sitios modernos y rápidos que convierten visitas en clientes.",  icon: "globe",      bg: "#16181D", iconColor: "#B8864E" },
+  { num: '002', title: "Agentes de IA",     label: "Automatizá la atención y procesos con inteligencia artificial.", icon: "sparkles",   bg: "#16181D", iconColor: "#B8864E" },
+  { num: '003', title: "Sistemas a Medida", label: "Gestión, stock, reservas — tecnología propia para tu negocio.",  icon: "layers",     bg: "#16181D", iconColor: "#B8864E" },
+  { num: '004', title: "Automatizaciones",  label: "Eliminá tareas repetitivas con flujos automáticos inteligentes.", icon: "zap",        bg: "#16181D", iconColor: "#B8864E" },
+  { num: '005', title: "Apps Móviles",      label: "Aplicaciones iOS y Android conectadas a tus sistemas.",          icon: "smartphone", bg: "#16181D", iconColor: "#B8864E" },
 ];
 
-const marketingServices: Service[] = [
-  { title: "Manejo de Redes",       label: "Contenido, comunidad y crecimiento en todas las plataformas.",       icon: "share" },
-  { title: "Creación de Videos",    label: "Producción audiovisual profesional para redes y campañas.",          icon: "video" },
-  { title: "Producción de Contenido", label: "Programas y formatos que posicionan tu marca como referente.",    icon: "radio" },
+const marketingServices: Array<{ num: string; title: string; label: string; icon: IconKey; bg: string; iconColor: string }> = [
+  { num: '001', title: "Manejo de Redes",         label: "Contenido, comunidad y crecimiento en todas las plataformas.",  icon: "share", bg: "#16181D", iconColor: "#B8864E" },
+  { num: '002', title: "Creación de Videos",      label: "Producción audiovisual profesional para redes y campañas.",     icon: "video", bg: "#16181D", iconColor: "#B8864E" },
+  { num: '003', title: "Producción de Contenido", label: "Programas y formatos que posicionan tu marca como referente.", icon: "radio", bg: "#16181D", iconColor: "#B8864E" },
 ];
 ---
 
-<section id="servicios" class="bg-[#1C1F24] py-28 px-8 md:px-16">
+<section id="servicios" class="bg-[#1C1F24] py-28 px-8 md:px-16 overflow-hidden">
   <div class="max-w-6xl mx-auto">
 
     <!-- Header -->
@@ -48,76 +41,100 @@ const marketingServices: Service[] = [
       </h2>
     </div>
 
-    <!-- Software -->
-    <p class="text-center text-[#B8864E] text-xs font-semibold uppercase tracking-[0.25em] mb-10">Software</p>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
-      {softwareServices.map((s) => (
-        <div class:list={[
-          "group flex flex-col items-center text-center gap-5 rounded-2xl p-8 transition-all duration-300 cursor-default",
-          s.featured
-            ? "bg-[#B8864E]/[0.09] border border-[#B8864E]/30 hover:border-[#B8864E]/60 hover:bg-[#B8864E]/[0.14]"
-            : "bg-[#16181D] border border-white/[0.06] hover:border-[#B8864E]/20 hover:bg-[#1A1D22]",
-        ]}>
-          <!-- Icon halo -->
-          <div class:list={[
-            "w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300",
-            s.featured
-              ? "bg-[#B8864E]/15 group-hover:bg-[#B8864E]/25"
-              : "bg-[#B8864E]/08 group-hover:bg-[#B8864E]/15",
-          ]}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#B8864E"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              set:html={icons[s.icon]}
-            />
-          </div>
-          <div>
-            <h3 class="text-white font-semibold text-sm mb-1.5 leading-snug">{s.title}</h3>
-            <p class="text-white/40 text-xs leading-relaxed">{s.label}</p>
-          </div>
+    <!-- SOFTWARE CAROUSEL -->
+    <div class="mb-16">
+      <div class="flex items-center justify-between mb-8">
+        <p class="text-[#B8864E] text-xs font-semibold uppercase tracking-[0.25em]">Software</p>
+        <div class="flex gap-2">
+          <button id="sw-prev" aria-label="Anterior" class="w-9 h-9 rounded-full border border-white/10 hover:border-[#B8864E]/50 flex items-center justify-center text-white/40 hover:text-[#B8864E] transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button id="sw-next" aria-label="Siguiente" class="w-9 h-9 rounded-full border border-white/10 hover:border-[#B8864E]/50 flex items-center justify-center text-white/40 hover:text-[#B8864E] transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
         </div>
-      ))}
+      </div>
+      <div id="sw-track" class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 scrollbar-hide" style="scroll-behavior: smooth;">
+        {softwareServices.map((s) => (
+          <div
+            class="snap-start flex-shrink-0 w-[300px] md:w-[320px] h-[400px] rounded-3xl p-7 flex flex-col justify-between cursor-default border border-white/[0.06] hover:border-[#B8864E]/30 hover:shadow-xl hover:shadow-black/30 transition-all duration-300"
+            style={`background-color: ${s.bg};`}
+          >
+            <span class="text-white/25 text-xs font-mono tracking-widest">( {s.num} )</span>
+            <div class="flex items-center justify-center flex-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke={s.iconColor} stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" set:html={icons[s.icon]} />
+            </div>
+            <div>
+              <h3 class="text-white font-semibold text-base mb-2 leading-snug">{s.title}</h3>
+              <p class="text-white/40 text-xs leading-relaxed">{s.label}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
 
     <!-- Divider -->
     <div class="flex items-center gap-6 my-12">
       <div class="flex-1 h-px bg-white/[0.06]"></div>
-      <span class="text-white/20 text-xs uppercase tracking-widest">Marketing Digital</span>
       <div class="flex-1 h-px bg-white/[0.06]"></div>
     </div>
 
-    <!-- Marketing -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-      {marketingServices.map((s) => (
-        <div class="group flex flex-col items-center text-center gap-5 bg-[#16181D] border border-white/[0.06] hover:border-[#B8864E]/20 hover:bg-[#1A1D22] rounded-2xl p-8 transition-all duration-300 cursor-default">
-          <div class="w-16 h-16 rounded-2xl bg-[#B8864E]/08 group-hover:bg-[#B8864E]/15 flex items-center justify-center transition-all duration-300">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#B8864E"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              set:html={icons[s.icon]}
-            />
-          </div>
-          <div>
-            <h3 class="text-white font-semibold text-sm mb-1.5 leading-snug">{s.title}</h3>
-            <p class="text-white/40 text-xs leading-relaxed">{s.label}</p>
-          </div>
+    <!-- MARKETING CAROUSEL -->
+    <div>
+      <div class="flex items-center justify-between mb-8">
+        <p class="text-[#B8864E] text-xs font-semibold uppercase tracking-[0.25em]">Marketing Digital</p>
+        <div class="flex gap-2">
+          <button id="mk-prev" aria-label="Anterior" class="w-9 h-9 rounded-full border border-white/10 hover:border-[#B8864E]/50 flex items-center justify-center text-white/40 hover:text-[#B8864E] transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button id="mk-next" aria-label="Siguiente" class="w-9 h-9 rounded-full border border-white/10 hover:border-[#B8864E]/50 flex items-center justify-center text-white/40 hover:text-[#B8864E] transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
         </div>
-      ))}
+      </div>
+      <div id="mk-track" class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 scrollbar-hide" style="scroll-behavior: smooth;">
+        {marketingServices.map((s) => (
+          <div
+            class="snap-start flex-shrink-0 w-[300px] md:w-[320px] h-[400px] rounded-3xl p-7 flex flex-col justify-between cursor-default border border-white/[0.06] hover:border-[#B8864E]/30 hover:shadow-xl hover:shadow-black/30 transition-all duration-300"
+            style={`background-color: ${s.bg};`}
+          >
+            <span class="text-white/25 text-xs font-mono tracking-widest">( {s.num} )</span>
+            <div class="flex items-center justify-center flex-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke={s.iconColor} stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" set:html={icons[s.icon]} />
+            </div>
+            <div>
+              <h3 class="text-white font-semibold text-base mb-2 leading-snug">{s.title}</h3>
+              <p class="text-white/40 text-xs leading-relaxed">{s.label}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
 
   </div>
 </section>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+<script>
+  function setupCarousel(trackId: string, prevId: string, nextId: string) {
+    const track = document.getElementById(trackId);
+    const prev  = document.getElementById(prevId);
+    const next  = document.getElementById(nextId);
+    if (!track || !prev || !next) return;
+
+    const cardWidth = () => {
+      const card = track.querySelector('div');
+      return card ? card.offsetWidth + 16 : 296;
+    };
+
+    next.addEventListener('click', () => { track.scrollBy({ left: cardWidth(), behavior: 'smooth' }); });
+    prev.addEventListener('click', () => { track.scrollBy({ left: -cardWidth(), behavior: 'smooth' }); });
+  }
+
+  setupCarousel('sw-track', 'sw-prev', 'sw-next');
+  setupCarousel('mk-track', 'mk-prev', 'mk-next');
+</script>
